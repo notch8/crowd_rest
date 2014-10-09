@@ -3,10 +3,13 @@ require 'httparty'
 module CrowdRest
   include HTTParty
 
+  # debug_output $stdout
+
   autoload :Session, 'crowd_rest/session'
   autoload :User,    'crowd_rest/user'
   
-  headers 'Content-type' => 'text/xml'
+  headers 'Content-type' => 'application/json'
+  headers 'Accept' => 'application/json'
   
   class << self
     attr_reader :app_name, :app_pass
