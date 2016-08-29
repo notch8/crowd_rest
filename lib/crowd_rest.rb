@@ -7,7 +7,8 @@ module CrowdRest
 
   autoload :Session, 'crowd_rest/session'
   autoload :User,    'crowd_rest/user'
-  
+  autoload :Group,    'crowd_rest/group'
+ 
   headers 'Content-type' => 'application/json'
   headers 'Accept' => 'application/json'
   
@@ -20,7 +21,7 @@ module CrowdRest
   end
   
   def self.crowd_url=(url)
-    base_uri("#{url}/crowd/rest/usermanagement/1")
+    base_uri("#{url}/rest/usermanagement/1")
   end
   
   def self.app_name=(app_name)

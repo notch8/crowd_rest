@@ -13,6 +13,22 @@ module CrowdRest
       end
     end
 
+    def self.get_user(username)
+      options = {
+        :query => {
+          :username => username
+        }
+      }
+      response = CrowdRest.get('/user', options)
+      normalize_response(response) do |successful_response|
+        successful_response.user = response
+      end
+    end
+
+    def self.add_user(user_options)
+      response = CrowdRest.post('/user', body: user_options.to_json, content_type: :json, accept: :json)
+      normalize_response(response, 201)
+    end
 
     private
     def self.normalize_response(response, success_code = 200)
