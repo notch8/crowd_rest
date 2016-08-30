@@ -1,7 +1,7 @@
 module CrowdRest
   class Group
     def self.add_user(group, user)
-      response = CrowdRest.post("/user/group/direct?username=#{user}", body: {name: group}.to_json, content_type: :json, accept: :json)
+      response = CrowdRest.post("/user/group/direct?username=#{CGI.escape(user)}", body: {name: group}.to_json, content_type: :json, accept: :json)
       normalize_response(response, 201)
     end
 
