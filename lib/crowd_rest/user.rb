@@ -30,6 +30,12 @@ module CrowdRest
       normalize_response(response, 201)
     end
 
+    def self.update_user(username, user_options)
+      response = CrowdRest.put("/user?username=#{CGI.escape(username)}", body: user_options.to_json, content_type: :json, accept: :json)
+      normalize_response(response, 204)
+    end
+
+
     private
     def self.normalize_response(response, success_code = 200)
       attributes = {
