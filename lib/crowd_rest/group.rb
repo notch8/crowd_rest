@@ -1,7 +1,7 @@
 module CrowdRest
   class Group
     def self.child_groups(group, child_groupname=nil, start_index=0, max_results=1000)
-      response = CrowdRest.get("/group/child-group/direct?groupname=#{CGI.escape(group)}&start-index=#{start_index}&max-results=#{max_results}", content_type: :json, accept: :json)
+      response = CrowdRest.get("/group/child-group/direct?groupname=#{CGI.escape(group)}&start-index=#{start_index}&max-results=#{max_results}&expand=group", content_type: :json, accept: :json)
       normalize_response(response, 201)
     end
 
