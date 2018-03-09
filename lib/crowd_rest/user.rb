@@ -35,7 +35,7 @@ module CrowdRest
       normalize_response(response, 204)
     end
 
-    def self.search(search_string, user_options)
+    def self.search(search_string, user_options={})
       user_options[:limit] ||= 10000
       user_options[:offset] ||= 0
       options = {
