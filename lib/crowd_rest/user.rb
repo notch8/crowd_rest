@@ -35,6 +35,23 @@ module CrowdRest
       normalize_response(response, 204)
     end
 
+    def self.search(search_string, user_options)
+      user_options[:limit] ||= 10000
+      user_options[:offset] ||= 0
+      options = {
+        :query => {
+          "entity-type" => 'user',
+          "max-results" => user_options[:limit],
+          "start-index" => user_options[:offset]
+          "restriction" => search_string
+        },
+        :content_type => :json,
+        :accept => :json
+      }
+      response = CrowdRest.get('/search', options)
+      normalize_response(response, 200)
+    end
+
 
     private
     def self.normalize_response(response, success_code = 200)
