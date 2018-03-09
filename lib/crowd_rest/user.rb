@@ -42,7 +42,7 @@ module CrowdRest
         :query => {
           "entity-type" => 'user',
           "max-results" => user_options[:limit],
-          "start-index" => user_options[:offset]
+          "start-index" => user_options[:offset],
           "restriction" => search_string
         },
         :content_type => :json,
