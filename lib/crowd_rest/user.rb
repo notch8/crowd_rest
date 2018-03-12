@@ -52,6 +52,28 @@ module CrowdRest
       normalize_response(response, 200)
     end
 
+    def self.get_user_attributes(username)
+      options = {
+        :query => {
+          :username => username
+        }
+      }
+      response = CrowdRest.get("/user/attribute", options)
+      normalize_response(response, 200)
+    end
+
+    def self.update_user_attributes(username, user_attributes)
+      options = {
+        :query => {
+          :username => username
+        },
+        :body => user_attributes.to_json,
+        :content_type => :json,
+        :accept => :json
+      }
+      response = CrowdRest.post("/user/attribute", options)
+      normalize_response(response, 204)
+    end
 
     private
     def self.normalize_response(response, success_code = 200)
