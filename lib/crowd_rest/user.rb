@@ -31,8 +31,18 @@ module CrowdRest
     end
 
     def self.update_user(username, user_options)
-      response = CrowdRest.put("/user?username=#{CGI.escape(username)}", body: user_options.to_json, content_type: :json, accept: :json)
+      options = {
+        :query => {
+          :username => username
+        },
+        :body => user_options.to_json,
+        :content_type => :json,
+        :accept => :json
+      }
+      response = CrowdRest.put("/user", options)
       normalize_response(response, 204)
+      # response = CrowdRest.put("/user?username=#{CGI.escape(username)}", body: user_options.to_json, content_type: :json, accept: :json)
+      # normalize_response(response, 204)
     end
 
     def self.search(search_string, user_options={})
@@ -72,6 +82,19 @@ module CrowdRest
         :accept => :json
       }
       response = CrowdRest.post("/user/attribute", options)
+      normalize_response(response, 204)
+    end
+
+    def self.remove_user_attribute(username, user_attribute)
+      options = {
+        :query => {
+          :username => username,
+          :attributename => user_attribute
+        },
+        :content_type => :json,
+        :accept => :json
+      }
+      response = CrowdRest.delete("user/attribute", options)
       normalize_response(response, 204)
     end
 
