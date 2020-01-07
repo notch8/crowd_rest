@@ -13,6 +13,18 @@ module CrowdRest
       end
     end
 
+    def self.group_nested(username)
+      options = {
+        :query => {
+          :username => username
+        }
+      }
+      response = CrowdRest.get("/user/group/nested", options)
+      normalize_response(response) do |successful_response|
+        successful_response.groups = response['groups']
+      end
+    end
+
     def self.get_user(username)
       options = {
         :query => {
