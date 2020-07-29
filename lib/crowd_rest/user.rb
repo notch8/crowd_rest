@@ -60,18 +60,22 @@ module CrowdRest
     def self.search(search_string, user_options={})
       user_options[:limit] ||= 10000
       user_options[:offset] ||= 0
+      user_options[:expand] ||= 'user'
       options = {
         :query => {
           "entity-type" => 'user',
           "max-results" => user_options[:limit],
           "start-index" => user_options[:offset],
-          "restriction" => search_string
+          "restriction" => search_string,
+          "expand"      => user_options[:expand]
         },
         :content_type => :json,
         :accept => :json
       }
       response = CrowdRest.get('/search', options)
-      normalize_response(response, 200)
+      normalize_response(response, 200) do |successful_response|
+        successful_response.users = response['users']
+      end
     end
 
     def self.get_user_attributes(username)
